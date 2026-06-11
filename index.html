@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Devika K — AI & ML Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #0f1117;
+      --ink-soft:  #3a3d4a;
+      --ink-muted: #7a7e8e;
+      --paper:     #f7f7f5;
+      --white:     #ffffff;
+      --accent:    #4f6ef7;
+      --accent-lt: #e8ecff;
+      --accent-gd: linear-gradient(135deg, #4f6ef7 0%, #9b59f7 100%);
+      --radius:    12px;
+      --shadow:    0 4px 32px rgba(15,17,23,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 6vw;
+      background: rgba(247,247,245,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(79,110,247,0.1);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem; font-weight: 700; letter-spacing: 0.02em;
+      color: var(--ink); text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--ink-soft); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    #home {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 120px 6vw 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 40%, rgba(79,110,247,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 70%, rgba(155,89,247,0.05) 0%, transparent 70%);
+    }
+    .hero-inner {
+      max-width: 760px; position: relative;
+    }
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 32px; height: 1px; background: var(--accent);
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 700; line-height: 1.05; letter-spacing: -0.01em;
+      color: var(--ink); margin-bottom: 24px;
+    }
+    h1 em { font-style: italic; color: var(--accent); }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--ink-soft);
+      max-width: 520px; line-height: 1.75; margin-bottom: 40px;
+    }
+    .hero-cta {
+      display: flex; gap: 14px; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px; border-radius: 8px;
+      font-size: 0.88rem; font-weight: 500; letter-spacing: 0.04em;
+      text-decoration: none; transition: all 0.22s; cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent-gd); color: #fff;
+      box-shadow: 0 4px 18px rgba(79,110,247,0.28);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(79,110,247,0.38); }
+    .btn-outline {
+      border: 1.5px solid rgba(79,110,247,0.35);
+      color: var(--accent); background: transparent;
+    }
+    .btn-outline:hover { background: var(--accent-lt); border-color: var(--accent); }
+
+    /* ── SECTIONS ── */
+    section { padding: 100px 6vw; }
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 14px;
+    }
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem); font-weight: 700;
+      color: var(--ink); margin-bottom: 48px; line-height: 1.15;
+    }
+    .divider {
+      width: 48px; height: 2px;
+      background: var(--accent-gd);
+      margin: 16px 0 48px; border-radius: 2px;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--white); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;
+      max-width: 960px;
+    }
+    .about-text p {
+      color: var(--ink-soft); font-size: 1rem; line-height: 1.85;
+      margin-bottom: 16px;
+    }
+    .about-meta { display: flex; flex-direction: column; gap: 16px; }
+    .meta-item {
+      display: flex; flex-direction: column; gap: 4px;
+      padding: 18px 22px; background: var(--paper);
+      border-radius: var(--radius); border-left: 3px solid var(--accent);
+    }
+    .meta-label {
+      font-family: 'DM Mono', monospace; font-size: 0.7rem;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted);
+    }
+    .meta-value { font-size: 0.95rem; font-weight: 500; color: var(--ink); }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--paper); }
+    .skills-wrap { max-width: 800px; }
+    .skills-grid {
+      display: flex; flex-wrap: wrap; gap: 12px;
+    }
+    .skill-tag {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 20px; border-radius: 40px;
+      background: var(--white);
+      border: 1.5px solid rgba(79,110,247,0.15);
+      font-size: 0.88rem; font-weight: 500; color: var(--ink-soft);
+      transition: all 0.2s;
+    }
+    .skill-tag:hover {
+      border-color: var(--accent); color: var(--accent);
+      background: var(--accent-lt); transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(79,110,247,0.12);
+    }
+    .skill-icon { font-size: 1.1rem; }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--white); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; max-width: 960px; }
+    .project-card {
+      background: var(--paper);
+      border-radius: var(--radius); padding: 32px;
+      border: 1px solid rgba(79,110,247,0.1);
+      transition: all 0.25s;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .project-card:hover {
+      border-color: rgba(79,110,247,0.35);
+      box-shadow: var(--shadow); transform: translateY(-4px);
+    }
+    .project-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: var(--accent-gd);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .project-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 700; color: var(--ink);
+    }
+    .project-desc {
+      font-size: 0.9rem; color: var(--ink-soft); line-height: 1.75; flex: 1;
+    }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .project-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.06em;
+      padding: 4px 10px; border-radius: 4px;
+      background: var(--accent-lt); color: var(--accent);
+    }
+    .project-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.82rem; font-weight: 500; color: var(--accent);
+      text-decoration: none; margin-top: 4px;
+      transition: gap 0.2s;
+    }
+    .project-link:hover { gap: 10px; }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--ink); color: var(--white); text-align: center;
+    }
+    #contact .section-label { color: rgba(79,110,247,0.8); }
+    #contact h2 { color: var(--white); margin-bottom: 16px; }
+    .contact-sub {
+      color: rgba(255,255,255,0.55); font-size: 1rem;
+      max-width: 440px; margin: 0 auto 48px;
+    }
+    .contact-links {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    }
+    .contact-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 30px; border-radius: 8px;
+      font-size: 0.88rem; font-weight: 500;
+      text-decoration: none; transition: all 0.22s;
+    }
+    .contact-btn.gh {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14); color: #fff;
+    }
+    .contact-btn.gh:hover { background: rgba(255,255,255,0.15); }
+    .contact-btn.li {
+      background: #0077b5; color: #fff;
+    }
+    .contact-btn.li:hover { background: #005f94; }
+    .contact-btn.em {
+      background: var(--accent-gd); color: #fff;
+      box-shadow: 0 4px 18px rgba(79,110,247,0.3);
+    }
+    .contact-btn.em:hover { transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink); text-align: center;
+      padding: 24px 6vw;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.3);
+      font-size: 0.8rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .about-grid { grid-template-columns: 1fr; gap: 32px; }
+      .nav-links { display: none; }
+    }
+
+    /* ── FADE-IN ── */
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#home">DK<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-inner fade-in">
+    <div class="hero-eyebrow">Welcome to my universe</div>
+    <h1>Devika <em>K</em></h1>
+    <p class="hero-sub">
+      B.Tech student specialising in Artificial Intelligence &amp; Machine Learning at Vidya Academy of Science and Technology — building intelligent systems that make the world a little easier to understand.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#projects">View Projects</a>
+      <a class="btn btn-outline" href="#contact">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About Me</div>
+  <div class="divider"></div>
+  <div class="about-grid fade-in">
+    <div class="about-text">
+      <p>I'm a second-year B.Tech student in Artificial Intelligence &amp; Machine Learning, passionate about turning data into insight and code into solutions that matter.</p>
+      <p>My interests span Artificial Intelligence, Machine Learning, Computer Vision, and Robotics — and honestly, everything beyond. I enjoy building projects at the intersection of real-world problems and emerging technology, from air quality dashboards to exploring the frontiers of intelligent systems.</p>
+      <p>When I'm not writing code, I'm experimenting with new ML concepts, contributing to open-source, and continuously levelling up my problem-solving skills.</p>
+    </div>
+    <div class="about-meta">
+      <div class="meta-item">
+        <span class="meta-label">Institution</span>
+        <span class="meta-value">Vidya Academy of Science and Technology</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Degree</span>
+        <span class="meta-value">B.Tech in Artificial Intelligence and Machine Learning</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Year</span>
+        <span class="meta-value">2nd Year (2025 – 2029)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Location</span>
+        <span class="meta-value">Thrissur, Kerala, India</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Interests</span>
+        <span class="meta-value">AI · ML · Computer Vision · Robotics and Beyond</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Technical Skills</div>
+  <div class="divider"></div>
+  <div class="skills-wrap fade-in">
+    <div class="skills-grid">
+      <div class="skill-tag"><span class="skill-icon">🐍</span> Python</div>
+      <div class="skill-tag"><span class="skill-icon">⚡</span> C</div>
+      <div class="skill-tag"><span class="skill-icon">🔷</span> C++</div>
+      <div class="skill-tag"><span class="skill-icon">🌐</span> HTML</div>
+      <div class="skill-tag"><span class="skill-icon">🤖</span> AI Tools</div>
+      <div class="skill-tag"><span class="skill-icon">🐙</span> GitHub</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Projects</div>
+  <div class="divider"></div>
+  <div class="projects-grid fade-in">
+    <div class="project-card">
+      <div class="project-icon">🌬️</div>
+      <div class="project-title">AirAlert</div>
+      <p class="project-desc">
+        A live air quality dashboard that tracks real-time PM2.5, AQI, and pollutant data for cities worldwide. Provides smart health recommendations based on current air conditions and visualises 24-hour AQI trends to help people make informed outdoor activity decisions.
+      </p>
+      <div class="project-tags">
+        <span class="project-tag">HTML</span>
+        <span class="project-tag">JavaScript</span>
+        <span class="project-tag">Open-Meteo API</span>
+        <span class="project-tag">Data Viz</span>
+      </div>
+      <a class="project-link" href="https://devikakravisankar-svg.github.io/AirAlert/" target="_blank" rel="noopener">
+        Live Demo →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Get In Touch</div>
+  <h2>Let's connect.</h2>
+  <p class="contact-sub">Open to collaborations, internships, and interesting conversations about AI.</p>
+  <div class="contact-links fade-in">
+    <a class="contact-btn gh" href="https://github.com/devikakravisankar-svg" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.58v-2.03c-3.34.73-4.04-1.6-4.04-1.6-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.48 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.9 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.69.83.57C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      GitHub
+    </a>
+    <a class="contact-btn li" href="https://www.linkedin.com/in/devika-k-10996a386" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45C23.2 24 24 23.23 24 22.28V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+      LinkedIn
+    </a>
+    <a class="contact-btn em" href="mailto:devikakmenon333@gmail.com">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+      Email Me
+    </a>
+  </div>
+</section>
+
+<footer>
+  © 2026 Devika K — Built with care &amp; curiosity.
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
